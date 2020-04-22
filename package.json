@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "## Source code for Udemy course",
   "main": "index.js",
+  "engines" : {
+    "node": "8.10.0",
+    "npm": "3.5.2"
+  },
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix ecommerce-client"
   },
   "keywords": [],
   "author": "",

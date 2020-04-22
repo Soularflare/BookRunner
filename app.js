@@ -36,8 +36,8 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 
-const port = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
-app.listen(port, () => {
+app.listen(PORT, () => {
 	console.log(`Server running on port ${port}`);
 });
