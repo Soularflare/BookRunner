@@ -36,6 +36,16 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 
+if (process.env.NODE_ENV === 'production'){		//provides client-side assets in production
+	app.use(express.static('ecommerce-client/build'));
+
+	const path = require('path');
+	app.get('*', (req,res) => {
+		res.sendFile(path.resolve(__dirname, 'ecommerce-client', 'build', 'index.html'));
+	});
+
+}
+
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
