@@ -11,7 +11,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon app.js",
     "client": "npm run start --prefix ecommerce-client",
-    "postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ecommerce-client && npm run build --prefix ecommerce-client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ecommerce-client && npm run build --prefix ecommerce-client"
   },
   "keywords": [],
   "author": "",
