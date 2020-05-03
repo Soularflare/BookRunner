@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
 import {getProducts} from './apiCore';
 import Card from './Card';
+import Search from './Search';
 
 const Home = () => {
 	const [productBySell, setProductBySell] = useState([]);
@@ -33,6 +34,7 @@ const Home = () => {
 	}, []);
 return (
 	<Layout title="Home Page" description="Ecommerce App" className="container-fluid">
+	<Search />
 		<h2 className="mb-4">Popular Items</h2>
 		<div className="row">
 		{productBySell.map((product, i) => (<Card key={i} product={product} />))}
