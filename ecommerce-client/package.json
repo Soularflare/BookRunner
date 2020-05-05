@@ -9,7 +9,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "0.9.5",
-    "uglify-es": "^3.3.9"
+    "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22"
   },
   "devDependencies": {},
   "scripts": {
