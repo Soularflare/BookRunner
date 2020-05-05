@@ -37,12 +37,20 @@ return (
 	<Search />
 		<h2 className="mb-4">Popular Items</h2>
 		<div className="row">
-		{productBySell.map((product, i) => (<Card key={i} product={product} />))}
+		{productBySell.map((product, i) => (
+			<div key={i} className="col-4 mb-3">
+			<Card product={product} />
+			</div>
+			))}
 		</div>
 
 		<h2 className="mb-4">Latest Arrivals</h2>
 		<div className="row">
-		{productByArrival.map((product, i) => (<Card key={i} product={product} />))}
+		{productByArrival.map((product, i) => (
+			<div key={i} className="col-4 mb-3">
+			<Card product={product} />
+			</div>
+			))}
 		</div>
 	</Layout>
 	);
