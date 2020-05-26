@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
 import {Link} from 'react-router-dom';
-import {getProducts, getBraintreeToken, processPayment} from './apiCore';
+import {getProducts, getBraintreeToken, processPayment, createOrder} from './apiCore';
 import Card from './Card';
 import {isAuthenticated} from '../auth';
 import DropIn from "braintree-web-drop-in-react";
@@ -40,6 +40,10 @@ const Checkout = ({products}) => {
 		}, 0);
 	};
 
+	const handleAddress = event => {
+		setData({...data, address: event.target.value});
+	};
+
 	const showError = error => (
 		<div className="alert alert-danger" style={{display: error ? '' : 'none'}}>
 			{error}
@@ -56,6 +60,8 @@ const Checkout = ({products}) => {
 	const buy = () => {
 		setData({loading: true});
 		let nonce;
+		
+		let deliveryAddress = data.address;
 		let getNonce = data.instance.requestPaymentMethod()
 		.then(data => {
 			
@@ -68,10 +74,20 @@ const Checkout = ({products}) => {
 			processPayment(userId, token, paymentData)
 			.then(response => {
 				console.log(response);
+
+				const createOrderData = {
+					products: products,
+					transaction_id: response.transaction.id,
+					amount: response.transaction.amount,
+					address: deliveryAddress
+				};
+				createOrder(userId, token, createOrderData);
+
+
 				setData({...data, success: response.success});
 				emptyCart(() => {
 					console.log('Payment success');
-					setData({loading: false});
+					setData({loading: false, success: true});
 				});
 			})
 			.catch(error => {
@@ -92,6 +108,14 @@ const Checkout = ({products}) => {
 		<div onBlur={() => setData({...data, error: ""})}>
 			{data.clientToken !== null && products.length > 0 ? (
 				<div>
+					<div className="gorm-group mb-3">
+						<label className="text-muted">Delivery address:</label>
+						<textarea
+							onChange={handleAddress}
+							className="form-control"
+							value={data.address}
+							placeholder="Enter delivery address" />
+					</div>
 					<DropIn options={{
 						authorization: data.clientToken,
 						paypal: {
